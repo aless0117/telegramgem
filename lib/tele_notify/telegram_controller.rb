@@ -5,6 +5,9 @@ module TeleNotify
         user = TelegramUser.create( { telegram_id: params[:message][:from][:id],
                                       last_name: params[:message][:from][:last_name],
                                       first_name: params[:message][:from][:first_name] } )
+        if user.save
+          user.send_message("Bienvenido a Alessbot, sientete libre de preguntar lo que quieras")
+        end
 
 
         message = Message.create( { telegram_id: params[:message][:from][:id],
@@ -12,7 +15,7 @@ module TeleNotify
                                       last_name: params[:message][:from][:last_name],
                                       first_name: params[:message][:from][:first_name] } )
 
-        
+
 
 
         render :nothing => true, :status => :ok
