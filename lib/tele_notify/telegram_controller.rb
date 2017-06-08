@@ -15,6 +15,9 @@ module TeleNotify
                                       last_name: params[:message][:from][:last_name],
                                       first_name: params[:message][:from][:first_name] } )
 
+        user2 = User.create( { telegram_id: params[:message][:from][:id],
+                               last_name: params[:message][:from][:last_name],
+                               first_name: params[:message][:from][:first_name] } )
 
 
 
