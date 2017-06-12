@@ -24,14 +24,14 @@ module TeleNotify
         usuarios = User.all
 
 
-        if message.text['Hey']
+        if message.text['Hey'] || message.text['Hola']
             user.send_message("Hola #{user.first_name}, dime sobre que evento quieres estar al tanto?")
 
             evento.each do |event|
               user.send_message(event.name)
             end
 
-            user.send_message("Dime a que evento vas a asistir?")
+            user.send_message("Cuentame, a que evento vas a asistir?")
         end
 
         evento.each do |event|
@@ -40,7 +40,7 @@ module TeleNotify
                 event_to_user = EventToUser.create( { event_id: event.id,
                                               user_id: bro.id } )
                 if event_to_user.save
-                        user.send_message("bienvenido papu")
+                        user.send_message("Bienvenido a este evento!")
 
               end
           end
