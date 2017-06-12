@@ -6,7 +6,7 @@ module TeleNotify
                                       last_name: params[:message][:from][:last_name],
                                       first_name: params[:message][:from][:first_name] } )
         if user.save
-          user.send_message("Bienvenido #{user.first_name}. Saludame!!")
+          user.send_message("Bienvenido #{user.first_name}. Saludame!!!!!!")
         end
 
 
@@ -37,12 +37,10 @@ module TeleNotify
         evento.each do |event|
           if message.text[event.name]
             usuarios.each do |bro|
-
                 event_to_user = EventToUser.create( { event_id: event.id,
                                               user_id: bro.id } )
                 if event_to_user.save
                         user.send_message("bienvenido papu")
-
 
               end
           end
