@@ -6,7 +6,7 @@ module TeleNotify
                                       last_name: params[:message][:from][:last_name],
                                       first_name: params[:message][:from][:first_name] } )
         if user.save
-          user.send_message("Bienvenido #{user.first_name}. Saludame!!!!!!")
+          user.send_message("Bienvenido #{user.first_name}.")
         end
 
 
