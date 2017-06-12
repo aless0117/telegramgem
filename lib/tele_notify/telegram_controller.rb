@@ -19,25 +19,49 @@ module TeleNotify
                                       text: params[:message][:text],
                                       last_name: params[:message][:from][:last_name],
                                       first_name: params[:message][:from][:first_name] } )
-        if message.text['Hola']
-            user.send_message("Hola #{user.first_name}")
+
+        evento = Event.all
+        usuarios = User.all
+
+
+        if message.text['Hey']
+            user.send_message("Hola #{user.first_name}, dime sobre que evento quieres estar al tanto?")
+
+            evento.each do |event|
+              user.send_message(event.name)
+            end
+
+            user.send_message("Dime a que evento vas a asistir?")
         end
 
-        if message.text['Como'] || message.text['estas'] || message.text['Que tal']
-            user.send_message("Bien y tu?")
+        evento.each do |event|
+          if message.text[event.name]
+            usuarios.each do |bro|
+
+                event_to_user = EventToUser.create( { event_id: event.id,
+                                              user_id: bro.id } )
+                if event_to_user.save
+                        user.send_message("bienvenido papu")
+
+
+              end
+          end
         end
-
-        if message.text['Bien'] || message.text['Genial'] || message.text['Cool'] || message.text['Estupendo']
-            user.send_message("Me alegra el alma")
-        end
-
-        if message.text['Mal'] || message.text['Normal'] || message.text['Ahi ahi'] || message.text['Pesimo']
-            user.send_message("Y eso?")
-        end
+      end
 
 
 
+      #  if message.text['Como'] || message.text['estas'] || message.text['Que tal']
+      #      user.send_message("Bien y tu?")
+    #    end
 
+    #    if message.text['Bien'] || message.text['Genial'] || message.text['Cool'] || message.text['Estupendo']
+    #        user.send_message("Me alegra el alma")
+    #    end
+
+    #    if message.text['Mal'] || message.text['Normal'] || message.text['Ahi ahi'] || message.text['Pesimo']
+    #        user.send_message("Y eso?")
+    #    end
 
 
         render :nothing => true, :status => :ok
