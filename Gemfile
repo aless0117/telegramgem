@@ -15,3 +15,5 @@ else
 end
 
 gem 'rails', rails
+
+gem 'telegram-bot-ruby'
